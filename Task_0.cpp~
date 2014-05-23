@@ -16,7 +16,8 @@
 //////////////////////////////////////////////////////////////////////////
 
 
-#include <iostream>					// библиотека для cin/cout
+// for the sake of testing
+include <iostream>					// библиотека для cin/cout
 using namespace std;
 
 int n;							// кол-во вершин в графе
@@ -67,6 +68,7 @@ int main()
 
 
 void WayOut() {
+	cout << "Hello!";
 	if (euler)
 		cout << "This graph contains euler circuit" << endl;
 	else

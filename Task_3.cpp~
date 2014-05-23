@@ -1,0 +1,97 @@
+//////////////////////////////////////////////////////////////////////////
+//									//
+//	Задача 3							//
+//									//
+//	В данном связном неориентированном взвешенном графе найдите	//
+//	кратчайший путь от заданной вершины ко всем остальным вершинам.	//
+//									//
+//////////////////////////////////////////////////////////////////////////
+//									//
+//	Решение								//
+//									//
+//	Алгоритм Дейкстры						//
+//									//
+//////////////////////////////////////////////////////////////////////////
+
+
+#include <iostream>
+//#include <cstdlib>
+#include <stdio.h>
+using namespace std;
+
+const int maxdistance = 1000;
+
+int main() {
+	int n, root;
+	cout << "Put the number of vertices and root" << endl;
+	cin >> n >> root;
+
+
+	int** adjacency = new int*[n];
+	for (int i = 0; i < n; i++)
+		adjacency[i] = new int[n];
+	cout << "Put the matrix of adjacency" << endl;
+	for (int i = 0; i < n; i++)
+		for (int j = 0; j < n; j++)
+			cin >> adjacency[i][j];
+
+
+	int* distance = new int[n];
+	for (int i = 0; i < n; i++)
+		distance[i] = maxdistance;
+
+
+	bool* flag = new bool[n];
+	for (int i = 0; i < n; i++)
+		flag[i] = 0;
+
+
+	string path[n];
+	for (int i = 0; i < n; i++)
+		path[i] = "";
+	
+	char* str = new char[2];
+	sprintf(str, "%d", root);
+	path[root] += str;
+
+
+	distance[root] = 0;
+	flag[root] = true;
+
+
+	for (int i = 1; i < n; i++) {
+		static int v, current;
+		current = maxdistance;
+
+		for (int u = 0; u < n; u++) {
+			if ((flag[u] == false) & (distance[u] < current)) {
+				v = u;
+				current = distance[u];
+			}
+		}
+
+		flag[v] = true;
+
+		for (int u = 0; u < n; u++) {
+			if ((adjacency[v][u] >= 0) & (distance[u] > distance[v] + adjacency[v][u])) {
+				distance[u] = distance[v] + adjacency[v][u];
+				sprintf(str, "%d", u);
+				path[u] = path[v] + str;
+				
+			}
+		}
+	}
+
+
+	for (int i = 0; i < n; i++)
+		cout << path[i] << nedl;
+
+	return 0;
+}
+
+
+
+
+
+
+
